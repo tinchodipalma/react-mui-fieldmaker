@@ -1,0 +1,152 @@
+.Multiple__Options {
+  margin-top: 20px;
+}
+
+.FileComponent__Container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.FileField__Container {
+  margin: 0 30px 20px 0;
+  overflow: hidden;
+}
+
+.FileField__Container .FileField__Input {
+  display: none;
+}
+
+.FileField__AddContainer,
+.FileField__Container .FileField__UploadContainer {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.FileField__AddContainer {
+  width: 100px;
+}
+
+.FileField__Container .FileField__UploadContainer {
+  background: #eee;
+}
+
+.FileField__Container .FileField__UploadContainer::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 200px 200px 0 0;
+  border-color: #fafafa transparent transparent transparent;
+  z-index: 1;
+}
+
+.FileField__Container .FileField__UploadContainer__Button {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  margin: 0 auto;
+  z-index: 2;
+  border: 2px solid;
+  background: #fff9;
+  transition: all 0.3s ease-in-out;
+}
+
+.FileField__Container .FileField__UploadContainer__DeleteButton {
+  display: block;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  left: auto;
+  transform: none;
+  margin: 0;
+  z-index: 3;
+  opacity: 0;
+  border: 2px solid;
+  background: #fff9;
+  transition: all 0.3s ease-in-out;
+}
+
+.FileField__Container .FileField__UploadContainer__Button:hover,
+.FileField__Container .FileField__UploadContainer__Button:focus,
+.FileField__Container .FileField__UploadContainer__Button:active,
+.FileField__Container .FileField__UploadContainer__DeleteButton:hover,
+.FileField__Container .FileField__UploadContainer__DeleteButton:focus,
+.FileField__Container .FileField__UploadContainer__DeleteButton:active {
+  background: #fff;
+}
+
+.FileField__AddContainer .FileField__AddContainer__Button {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  border: 2px solid;
+  transform: translateY(-50%);
+  margin: 0 auto;
+  z-index: 1;
+}
+
+.FileField__UploadedImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: none;
+  position: absolute;
+  z-index: 2;
+}
+
+.FileField--withFile:hover .FileField__UploadContainer__DeleteButton {
+  display: block;
+  opacity: 1;
+}
+
+.FileField--withFile .FileField__UploadContainer__Button {
+  display: none;
+}
+
+.FileField--withFile .FileField__UploadedImage {
+  display: block;
+}
+
+.GroupComponent__Container {
+  display: flex;
+  flex-direction: column;
+}
+
+.GroupComponent__ButtonsGroup > button {
+  border-radius: 0;
+  box-shadow: 0;
+}
+
+.GroupComponent__ButtonsGroup > button:not(:last-child) {
+  border-right: 0;
+}
+
+.GroupComponent__ButtonsGroup > button:first-child {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.GroupComponent__ButtonsGroup > button:last-child {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.GroupComponent__ButtonsGroup > .GroupComponent__Button--selected {
+  background: #4527a0;
+  color: #fafafa;
+}
+
+.GroupComponent__ButtonsGroup > .GroupComponent__Button--selected:hover,
+.GroupComponent__ButtonsGroup > .GroupComponent__Button--selected:active,
+.GroupComponent__ButtonsGroup > .GroupComponent__Button--selected:focus {
+  background: #4527a0cc;
+  color: #fafafa;
+}
