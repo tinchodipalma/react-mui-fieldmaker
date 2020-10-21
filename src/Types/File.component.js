@@ -1,10 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { TextField, IconButton, Paper } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import UploadIcon from '@material-ui/icons/CloudUpload';
 import CloseIcon from '@material-ui/icons/Close';
+import DnD from '../DnD';
 
 const FILE_TYPES = {
   any: 'any',
@@ -12,37 +13,68 @@ const FILE_TYPES = {
   pdf: 'pdf',
 };
 
-const FileFieldComponent = ({ file, fileType, onFileChange }) => {
-  const fileInputRef = useRef();
-  // const uploadedImageRef = useRef(null);
-  const [imageSrc, setImageSrc] = useState(file || null);
-
-  const onUploadClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const onFileInputChange = ({ target: { files } }) => {
-    const [fileData] = files;
-
-    onFileChange(fileData);
-    if (fileData && fileType === FILE_TYPES.image) {
+const readImageFile = async (file) => {
+  return new Promise((resolve, reject) => {
+    try {
       // eslint-disable-next-line no-undef
       const reader = new FileReader();
-      // const { current } = uploadedImageRef;
-      // current.file = fileData;
       reader.onload = (e) => {
-        // current.src = e.target.result;
-        setImageSrc(e.target.result);
+        resolve(e.target.result);
       };
-      reader.readAsDataURL(fileData);
+
+      reader.readAsDataURL(file);
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+
+const FileFieldComponent = ({ file, fileType, onFileChange }) => {
+  const fileInputRef = useRef();
+  const [imageSrc, setImageSrc] = useState(
+    fileType === FILE_TYPES.image && file && file.blob ? file.blob : null
+  );
+
+  const loadImageSrc = async (imageFile) => {
+    let newImageSrc = imageFile && imageFile.blob ? imageFile.blob : null;
+    try {
+      if (!newImageSrc) {
+        newImageSrc = await readImageFile(imageFile);
+      }
+      setImageSrc(newImageSrc);
+    } catch (err) {
+      // do nothing.
+    }
+
+    return newImageSrc;
+  };
+
+  useEffect(() => {
+    if (file && fileType === FILE_TYPES.image) {
+      loadImageSrc(file);
+    }
+  }, [file]);
+
+  const onUploadClick = () => {
+    if (!file) {
+      fileInputRef.current.click();
     }
   };
 
-  const onDeleteClick = () => {
+  const onFileInputChange = async ({ target: { files } }) => {
+    const [fileData] = files;
+
+    if (fileData && fileType === FILE_TYPES.image) {
+      const blobURL = await loadImageSrc(fileData);
+      fileData.blob = blobURL;
+    }
+
+    onFileChange(fileData);
+  };
+
+  const onDeleteClick = (event) => {
+    event.stopPropagation();
     if (file && fileType === FILE_TYPES.image) {
-      // const { current } = uploadedImageRef;
-      // delete current.file;
-      // delete current.src;
       setImageSrc(null);
     }
     onFileChange(null);
@@ -53,24 +85,30 @@ const FileFieldComponent = ({ file, fileType, onFileChange }) => {
     `FileField--${fileType}`,
     {
       'FileField--withFile': !!file,
+      'FileField--withImage': !!imageSrc,
     }
   );
 
   return (
     <div className={containerClassName}>
-      <Paper className="FileField__UploadContainer">
+      <Paper
+        className="FileField__UploadContainer"
+        component={!file ? 'a' : 'div'}
+        onClick={onUploadClick}
+      >
         {!!imageSrc && (
           <img className="FileField__UploadedImage" src={imageSrc} />
         )}
         <IconButton
           className="FileField__UploadContainer__Button"
-          onClick={onUploadClick}
+          component="div"
           color="primary"
           size="medium"
         >
           <UploadIcon />
         </IconButton>
         <IconButton
+          component="a"
           className="FileField__UploadContainer__DeleteButton"
           onClick={onDeleteClick}
           color="primary"
@@ -124,20 +162,29 @@ const FileComponent = ({
     onChange({ target: { value: newFiles } });
   };
 
+  const onDnDChange = (elements) => {
+    setFiles(elements);
+  };
+
   const onAddClick = () => {
     setFiles(files.concat(null));
   };
 
   return (
     <div className="FileComponent FileComponent__Container">
-      {files.map((file, i) => (
-        <FileFieldComponent
-          key={i}
-          file={file}
-          fileType={fileType}
-          onFileChange={onFileChange(i)}
-        />
-      ))}
+      <DnD
+        elements={files}
+        onChange={onDnDChange}
+        elementClassName="FileField__Draggable"
+      >
+        {(file, index) => (
+          <FileFieldComponent
+            file={file}
+            fileType={fileType}
+            onFileChange={onFileChange(index)}
+          />
+        )}
+      </DnD>
 
       {allowMoreFiles && (
         <div className="FileField__AddContainer">

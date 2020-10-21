@@ -18,10 +18,12 @@ export default {
     {
       file: pkg.module,
       format: 'es',
-    }
+    },
   ],
   plugins: [
-    external(),
+    external({
+      includeDependencies: true,
+    }),
     postcss({
       modules: false,
     }),
