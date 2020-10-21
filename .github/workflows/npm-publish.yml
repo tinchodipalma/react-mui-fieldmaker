@@ -4,9 +4,18 @@
 name: Node.js Package
 
 env:
-  NPM_VERSION: 1.0.${{ env.GITHUB_RUN_NUMBER }} 
+  NPM_VERSION: 1.0.${{ env.GITHUB_RUN_NUMBER }}
 
 on:
+  push:
+    # Publish `master` as Docker `latest` image.
+    branches:
+      - master
+
+    # Publish `v1.2.3` tags as releases.
+    tags:
+      - v*
+
   release:
     types: [created]
 
