@@ -30,7 +30,7 @@ jobs:
           node-version: 14
       - run: npm ci
       - run: npm --no-git-tag-version version ${{ env.NPM_VERSION }}
-      - run: npm build
+      - run: npm run build
 
   publish-npm:
     needs: build
@@ -43,7 +43,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: npm --no-git-tag-version version ${{ env.NPM_VERSION }}
-      - run: npm build
+      - run: npm run build
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
@@ -59,7 +59,7 @@ jobs:
   #         registry-url: https://npm.pkg.github.com/
   #     - run: npm ci
   #     - run: npm --no-git-tag-version version ${{ env.NPM_VERSION }}
-  #     - run: npm build
+  #     - run: npm run build
   #     - run: npm publish
   #       env:
   #         NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
