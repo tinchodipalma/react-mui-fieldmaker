@@ -178,6 +178,7 @@ const FileComponent = ({
 
   const onDnDChange = (elements) => {
     setFiles(elements);
+    onChange({ target: { value: elements } });
   };
 
   const onAddClick = () => {
