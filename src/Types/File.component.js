@@ -43,7 +43,7 @@ const getImageSrc = (file) => {
   return src;
 };
 
-const FileFieldComponent = ({ file, fileType, onFileChange }) => {
+const FileFieldComponent = ({ file, fileType, onFileChange, multiple }) => {
   const fileInputRef = useRef();
   const [imageSrc, setImageSrc] = useState(
     fileType === FILE_TYPES.image ? getImageSrc(file) : null
@@ -76,11 +76,16 @@ const FileFieldComponent = ({ file, fileType, onFileChange }) => {
   };
 
   const onFileInputChange = async ({ target: { files } }) => {
-    const [fileData] = files;
+    let fileData = Array.from(files);
 
-    if (fileData && fileType === FILE_TYPES.image) {
-      const blobURL = await loadImageSrc(fileData);
-      fileData.blob = blobURL;
+    if (fileType === FILE_TYPES.image) {
+      fileData = await Promise.all(
+        fileData.map(async (fileDataElement) => {
+          const blobURL = await loadImageSrc(fileDataElement);
+          fileDataElement.blob = blobURL;
+          return fileDataElement;
+        })
+      );
     }
 
     onFileChange(fileData);
@@ -103,6 +108,8 @@ const FileFieldComponent = ({ file, fileType, onFileChange }) => {
     }
   );
 
+  const accept = fileType === FILE_TYPES.image ? 'image/*' : null;
+
   return (
     <div className={containerClassName}>
       <Paper
@@ -122,7 +129,7 @@ const FileFieldComponent = ({ file, fileType, onFileChange }) => {
           <UploadIcon />
         </IconButton>
         <IconButton
-          component="a"
+          component={file ? 'a' : 'div'}
           className="FileField__UploadContainer__DeleteButton"
           onClick={onDeleteClick}
           color="primary"
@@ -138,6 +145,7 @@ const FileFieldComponent = ({ file, fileType, onFileChange }) => {
         label=""
         value=""
         onChange={onFileInputChange}
+        inputProps={{ multiple, accept }}
         fullWidth
       />
     </div>
@@ -146,11 +154,13 @@ const FileFieldComponent = ({ file, fileType, onFileChange }) => {
 
 FileFieldComponent.defaultProps = {
   file: '',
+  multiple: true,
   fileType: FILE_TYPES.any,
 };
 
 FileFieldComponent.propTypes = {
   file: PropTypes.any,
+  multiple: PropTypes.bool,
   fileType: PropTypes.string,
   onFileChange: PropTypes.func.isRequired,
 };
@@ -159,6 +169,7 @@ const FileComponent = ({
   value,
   label,
   max,
+  multiple,
   fileType,
   onChange,
   ...otherProps
@@ -175,9 +186,15 @@ const FileComponent = ({
 
   const allowMoreFiles = files.length < max;
 
-  const onFileChange = (index) => (file) => {
+  const onFileChange = (index) => (receivedFiles) => {
     let newFiles = [...files];
-    newFiles[index] = file;
+    if (receivedFiles) {
+      newFiles.splice(index, 1, ...receivedFiles);
+      newFiles = newFiles.slice(0, max);
+    } else {
+      newFiles[index] = receivedFiles;
+    }
+
     setFiles(newFiles);
     onChange({ target: { value: newFiles } });
   };
@@ -203,6 +220,7 @@ const FileComponent = ({
             key={index}
             file={file}
             fileType={fileType}
+            multiple={multiple}
             onFileChange={onFileChange(index)}
           />
         )}
@@ -227,6 +245,7 @@ FileComponent.defaultProps = {
   value: '',
   fileType: FILE_TYPES.any,
   max: 1,
+  multiple: true,
 };
 
 FileComponent.propTypes = {
@@ -236,6 +255,7 @@ FileComponent.propTypes = {
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.arrayOf(PropTypes.object),
   ]),
+  multiple: PropTypes.bool,
   fileType: PropTypes.string,
   max: PropTypes.number,
   label: PropTypes.string.isRequired,
