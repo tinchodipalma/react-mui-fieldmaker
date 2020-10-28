@@ -5,3 +5,14 @@ export const reorder = (list, startIndex, endIndex) => {
 
   return result;
 };
+
+export const parseNumber = (value, isInteger) => {
+  let numericValue = null;
+  if (typeof value === 'number') {
+    numericValue = value;
+  } else if (typeof value === 'string' && value.length) {
+    numericValue = isInteger ? parseInt(value, 10) : parseFloat(value);
+  }
+
+  return numericValue;
+};

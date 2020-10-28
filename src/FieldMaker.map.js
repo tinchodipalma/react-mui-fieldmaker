@@ -8,6 +8,8 @@ import MultipleComponent from './Types/Multiple.component';
 import FileComponent from './Types/File.component';
 import GroupComponent from './Types/Group.component';
 import TagsComponent from './Types/Tags.component';
+import TypeaheadComponent from './Types/Typeahead.component';
+import NumberTypeaheadComponent from './Types/NumberTypeahead.component';
 
 const FIELD_MAKER_MAP = {
   string: StringComponent,
@@ -21,6 +23,8 @@ const FIELD_MAKER_MAP = {
   checkbox: CheckboxComponent,
   multiple: MultipleComponent,
   file: FileComponent,
+  typeahead: TypeaheadComponent,
+  numbertypeahead: NumberTypeaheadComponent,
   default: StringComponent,
 };
 

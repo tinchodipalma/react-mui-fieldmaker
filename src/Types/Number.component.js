@@ -1,19 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { TextField } from '@material-ui/core';
-
-const parseNumber = (value, isInteger) => {
-  let numericValue = null;
-  if (typeof value === 'number') {
-    numericValue = value;
-  } else if (typeof value === 'string' && value.length) {
-    numericValue = isInteger ? parseInt(value, 10) : parseFloat(value);
-  }
-
-  return numericValue;
-};
-
-const numericRegex = new RegExp('([0-9]+(.[0-9]+)?)');
+import { parseNumber } from '../FieldMaker.helpers';
+import { NUMERIC_REGEX } from '../FieldMaker.constants';
 
 const NumberComponent = ({
   value,
@@ -41,7 +30,7 @@ const NumberComponent = ({
       : replacedCommaValue;
 
     let newValue = replacedCommaValue;
-    if (numericRegex.test(fixedEndingValue)) {
+    if (NUMERIC_REGEX.test(fixedEndingValue)) {
       newValue = parseNumber(fixedEndingValue, isInteger);
       onChange({ target: { value: newValue } });
 

@@ -30,6 +30,8 @@ const SelectComponent = ({
   config,
   onChange,
   nonTrivialValue,
+  withPickOneOption,
+  pickOneOptionValue,
   ...otherProps
 }) => {
   const SelectWrapper =
@@ -45,7 +47,9 @@ const SelectComponent = ({
         fullWidth
         {...otherProps}
       >
-        {(!value || !value.length) && <option>Seleccione una opción</option>}
+        {(!value || !value.length) && withPickOneOption && (
+          <option value={pickOneOptionValue}>Seleccione una opción</option>
+        )}
         {options.map((option, i) => (
           <option key={i} value={option[config.valueKey]}>
             {option[config.labelKey]}
@@ -60,6 +64,8 @@ SelectComponent.defaultProps = {
   value: '',
   options: [],
   required: false,
+  withPickOneOption: true,
+  pickOneOptionValue: '',
   config: {
     valueKey: 'id',
     labelKey: 'label',
@@ -70,6 +76,8 @@ SelectComponent.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   options: PropTypes.array,
   required: PropTypes.bool,
+  withPickOneOption: PropTypes.bool,
+  pickOneOptionValue: PropTypes.any,
   config: PropTypes.object,
   nonTrivialValue: PropTypes.bool,
   label: PropTypes.string.isRequired,
