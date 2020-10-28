@@ -29,10 +29,24 @@ const readImageFile = async (file) => {
   });
 };
 
+const getImageSrc = (file) => {
+  let src = null;
+
+  if (file) {
+    if (typeof file === 'object' && file.blob) {
+      src = file.blob;
+    } else if (typeof file === 'string') {
+      src = file;
+    }
+  }
+
+  return src;
+};
+
 const FileFieldComponent = ({ file, fileType, onFileChange }) => {
   const fileInputRef = useRef();
   const [imageSrc, setImageSrc] = useState(
-    fileType === FILE_TYPES.image && file && file.blob ? file.blob : null
+    fileType === FILE_TYPES.image ? getImageSrc(file) : null
   );
 
   const loadImageSrc = async (imageFile) => {
