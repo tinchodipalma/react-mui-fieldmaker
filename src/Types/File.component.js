@@ -50,7 +50,7 @@ const FileFieldComponent = ({ file, fileType, onFileChange }) => {
   );
 
   const loadImageSrc = async (imageFile) => {
-    let newImageSrc = imageFile && imageFile.blob ? imageFile.blob : null;
+    let newImageSrc = imageFile ? getImageSrc(imageFile) : null;
     try {
       if (!newImageSrc) {
         newImageSrc = await readImageFile(imageFile);
@@ -200,6 +200,7 @@ const FileComponent = ({
       >
         {(file, index) => (
           <FileFieldComponent
+            key={index}
             file={file}
             fileType={fileType}
             onFileChange={onFileChange(index)}
