@@ -167,6 +167,12 @@ const FileComponent = ({
     Array.isArray(value) ? [...value] : [value]
   );
 
+  useEffect(() => {
+    setFiles(Array.isArray(value) ? [...value] : [value]);
+
+    // eslint-disable-next-line
+  }, [value]);
+
   const allowMoreFiles = files.length < max;
 
   const onFileChange = (index) => (file) => {
