@@ -4,8 +4,8 @@
 
 .FileComponent__Container {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
+  overflow-x: auto;
 }
 
 .FileField__Draggable {
@@ -57,10 +57,17 @@
   margin: 0 auto;
   z-index: 2;
   border: 2px solid;
-  background: #fff9;
+  background: #fff7;
   transition: all 0.3s ease-in-out;
-  height: 24px;
-  width: 24px;
+  height: 30%;
+  width: 30%;
+}
+
+.FileField__Container .FileField__UploadContainer__Button .MuiIconButton-label {
+  display: block;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .FileField__Container .FileField__UploadContainer__DeleteButton {
