@@ -15,12 +15,14 @@ const NumberTypeaheadComponent = ({
 }) => {
   let parsedValue = parseNumber(inputValue, isInteger);
 
-  const onValueChange = (e, val) => {
-    if (!e) return;
+  const onValueChange = (event, val) => {
+    if (!event) {
+      return false;
+    }
 
     let {
       target: { value },
-    } = e;
+    } = event;
 
     value = val || value;
 
