@@ -8,7 +8,7 @@ const TypeaheadComponent = ({
   label,
   options,
   onChange,
-  onChange,
+  onInputChange,
   ...otherProps
 }) => {
   const onSelect = (event, option) => {
@@ -41,6 +41,7 @@ const TypeaheadComponent = ({
 TypeaheadComponent.defaultProps = {
   value: '',
   options: [],
+  onInputChange: () => {},
 };
 
 TypeaheadComponent.propTypes = {
@@ -48,6 +49,7 @@ TypeaheadComponent.propTypes = {
   options: PropTypes.array,
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  onInputChange: PropTypes.func,
 };
 
 export default TypeaheadComponent;
