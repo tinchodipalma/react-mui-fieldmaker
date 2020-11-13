@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { reorder } from '../FieldMaker.helpers';
 
 import './DnD.css';
-
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
 
 const fulfillElements = (elements) => {
   return elements.map((element, index) => {
@@ -53,7 +46,13 @@ const DnD = ({
 
     const newElements = newDndElements.map(({ element }) => element);
 
-    onChange(newElements);
+    const dndEvent = {
+      type: 'DND_UPDATE',
+      source: result.source.index,
+      destination: result.destination.index,
+    };
+
+    onChange(newElements, dndEvent);
   };
 
   return (

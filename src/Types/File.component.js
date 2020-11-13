@@ -199,9 +199,9 @@ const FileComponent = ({
     onChange({ target: { value: newFiles } });
   };
 
-  const onDnDChange = (elements) => {
+  const onDnDChange = (elements, dndEvent) => {
     setFiles(elements);
-    onChange({ target: { value: elements } });
+    onChange({ target: { value: elements } }, dndEvent);
   };
 
   const onAddClick = () => {
