@@ -1,8 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import FIELD_MAKER_MAP from './FieldMaker.map';
-
+import React from 'react';
 import './FieldMaker.css';
+import FIELD_MAKER_MAP from './FieldMaker.map';
 
 const FieldMaker = ({ type, className, nonTrivialValue, ...otherProps }) => {
   const FieldComponent = FIELD_MAKER_MAP[type.toLowerCase()]
