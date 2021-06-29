@@ -10,10 +10,13 @@ const HierarchicalSelectComponent = ({
   config,
   ...parentProps
 }) => {
-  const onSelectChange = (property) => ({
+  const onSelectChange = (property, isIntegerValue) => ({
     target: { value: propertyValue },
   }) => {
-    let updatedValue = { ...value, [property]: propertyValue };
+    let updatedValue = {
+      ...value,
+      [property]: isIntegerValue ? parseInt(propertyValue) : propertyValue,
+    };
     onChange({ target: { value: updatedValue } });
   };
 
@@ -24,7 +27,11 @@ const HierarchicalSelectComponent = ({
           <SelectComponent
             {...parentProps}
             {...select}
-            onChange={onSelectChange(select.key)}
+            onChange={onSelectChange(
+              select.key,
+              selectOptions.length &&
+                Number.isInteger(selectOptions[0][config.valueKey])
+            )}
             value={currentValue}
             options={selectOptions}
             config={config}
