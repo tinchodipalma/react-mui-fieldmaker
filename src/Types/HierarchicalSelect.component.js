@@ -4,7 +4,7 @@ import SelectComponent from './Select.component';
 
 const HierarchicalSelectComponent = ({
   options,
-  selectHierarchy,
+  hierarchy,
   value,
   onChange,
   config,
@@ -20,15 +20,15 @@ const HierarchicalSelectComponent = ({
     onChange({ target: { value: updatedValue } });
   };
 
-  let selectsOutput = selectHierarchy.reduce(
+  let selectsOutput = hierarchy.reduce(
     ({ selects, selectOptions }, select) => {
-      let currentValue = value[select.key],
+      let currentValue = value[select.id],
         CurrentSelect = (
           <SelectComponent
             {...parentProps}
             {...select}
             onChange={onSelectChange(
-              select.key,
+              select.id,
               selectOptions.length &&
                 Number.isInteger(selectOptions[0][config.valueKey])
             )}
@@ -55,7 +55,7 @@ const HierarchicalSelectComponent = ({
 HierarchicalSelectComponent.defaultProps = {
   value: {},
   options: [],
-  selectHierarchy: [],
+  hierarchy: [],
   required: false,
   withPickOneOption: true,
   pickOneOptionValue: '',
@@ -75,7 +75,7 @@ HierarchicalSelectComponent.propTypes = {
   nonTrivialValue: PropTypes.bool,
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  selectHierarchy: PropTypes.array.isRequired,
+  hierarchy: PropTypes.array.isRequired,
 };
 
 export default HierarchicalSelectComponent;
