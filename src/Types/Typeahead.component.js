@@ -48,8 +48,20 @@ TypeaheadComponent.propTypes = {
   value: PropTypes.any,
   options: PropTypes.array,
   label: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onInputChange: PropTypes.func,
+  onChange: (props, propName, componentName) => {
+    if (!props.onChange && !props.onInputChange) {
+      return new Error(
+        `One of props 'onChange' or 'onInputChange' was not specified in '${componentName}'.`
+      );
+    }
+  },
+  onInputChange: (props, propName, componentName) => {
+    if (!props.onChange && !props.onInputChange) {
+      return new Error(
+        `One of props 'onChange' or 'onInputChange' was not specified in '${componentName}'.`
+      );
+    }
+  },
 };
 
 export default TypeaheadComponent;
