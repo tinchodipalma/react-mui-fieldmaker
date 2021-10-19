@@ -109,6 +109,7 @@ const FileFieldComponent = ({ file, fileType, onFileChange, multiple }) => {
   );
 
   const accept = fileType === FILE_TYPES.image ? 'image/*' : null;
+  const capture = fileType === FILE_TYPES.image ? 'environment' : null;
 
   return (
     <div className={containerClassName}>
@@ -145,7 +146,7 @@ const FileFieldComponent = ({ file, fileType, onFileChange, multiple }) => {
         label=""
         value=""
         onChange={onFileInputChange}
-        inputProps={{ multiple, accept }}
+        inputProps={{ multiple, accept, capture }}
         fullWidth
       />
     </div>
