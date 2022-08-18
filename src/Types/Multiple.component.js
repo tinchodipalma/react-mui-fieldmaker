@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormControl, InputLabel, FormGroup } from '@material-ui/core';
+import { FormControl, InputLabel, FormGroup } from '@mui/material';
 import CheckboxComponent from './Checkbox.component';
 
 const MultipleWithLabel = ({ label, children }) => (

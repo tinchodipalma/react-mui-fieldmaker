@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Select, FormControl, InputLabel } from '@material-ui/core';
+import { Select, FormControl, InputLabel } from '@mui/material';
 
 const SelectWithLabel = ({ label, children, required }) => (
   <FormControl fullWidth required={required}>

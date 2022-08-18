@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { TextField, IconButton, Paper } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import UploadIcon from '@material-ui/icons/CloudUpload';
-import CloseIcon from '@material-ui/icons/Close';
+import { TextField, IconButton, Paper } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import UploadIcon from '@mui/icons-material/CloudUpload';
+import CloseIcon from '@mui/icons-material/Close';
 import DnD from '../DnD';
 
 const FILE_TYPES = {

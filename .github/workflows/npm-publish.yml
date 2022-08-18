@@ -4,7 +4,7 @@
 name: Node.js Package
 
 env:
-  NPM_VERSION: 1.0.${{ github.run_number }}
+  NPM_VERSION: 1.1.${{ github.run_number }}
 
 on:
   push:

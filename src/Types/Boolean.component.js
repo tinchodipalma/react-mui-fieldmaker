@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormControlLabel, Switch } from '@material-ui/core';
+import { FormControlLabel, Switch } from '@mui/material';
 
 const BooleanWithLabel = ({ label, children }) => (
   <FormControlLabel control={children} label={label} color="primary" />

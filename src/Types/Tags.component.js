@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Autocomplete } from '@material-ui/lab';
-import { TextField, Chip } from '@material-ui/core';
+import { TextField, Chip, Autocomplete } from '@mui/material';
 
 const TagsComponent = ({
   value,

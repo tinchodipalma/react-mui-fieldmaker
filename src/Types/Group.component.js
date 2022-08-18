@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { ButtonGroup, Button, Typography } from '@material-ui/core';
+import { ButtonGroup, Button, Typography } from '@mui/material';
 
 const GroupButton = ({ selectedValues, option, config, size, onClick }) => {
   const optionValue = option[config.valueKey] || 'no-value';
