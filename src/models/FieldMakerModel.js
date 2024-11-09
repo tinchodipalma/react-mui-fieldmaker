@@ -19,6 +19,8 @@ export default class FieldMakerModel {
         inputValue,
         options,
         max,
+        withPickOneOption,
+        pickOneOptionValue,
         onInputChange,
         onChange,
         onClick,
@@ -49,9 +51,11 @@ export default class FieldMakerModel {
         this.multiple = multiple;
         this.onFileChange = onFileChange;
 
-        // hierarchy select
+        // selects
         this.hierarchy = hierarchy;
         this.config = config;
+        this.withPickOneOption = withPickOneOption;
+        this.pickOneOptionValue = pickOneOptionValue;
 
         // typeahead
         this.options = options;
