@@ -21,6 +21,7 @@ export default class FieldMakerModel {
         max,
         withPickOneOption,
         pickOneOptionValue,
+        pickOneOptionPrompt,
         onInputChange,
         onChange,
         onClick,
@@ -56,6 +57,7 @@ export default class FieldMakerModel {
         this.config = config;
         this.withPickOneOption = withPickOneOption;
         this.pickOneOptionValue = pickOneOptionValue;
+        this.pickOneOptionPrompt = pickOneOptionPrompt;
 
         // typeahead
         this.options = options;

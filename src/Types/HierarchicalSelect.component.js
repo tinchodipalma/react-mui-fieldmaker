@@ -58,7 +58,7 @@ HierarchicalSelectComponent.defaultProps = {
   hierarchy: [],
   required: false,
   withPickOneOption: true,
-  pickOneOptionValue: '',
+  pickOneOptionPrompt: 'Seleccione una opción',
   config: {
     valueKey: 'id',
     labelKey: 'name',
@@ -70,7 +70,6 @@ HierarchicalSelectComponent.propTypes = {
   options: PropTypes.array,
   required: PropTypes.bool,
   withPickOneOption: PropTypes.bool,
-  pickOneOptionValue: PropTypes.any,
   config: PropTypes.object,
   nonTrivialValue: PropTypes.bool,
   label: PropTypes.string.isRequired,
