@@ -22,7 +22,7 @@
   "peerDependencies": {
     "@emotion/react": "^11.7.0",
     "@emotion/styled": "^11.6.0",
-    "@mui/icons-material": "^5.17.11",
+    "@mui/icons-material": "^5.17.1",
     "@mui/lab": "^5.0.0-alpha.57",
     "@mui/material": "^5.6.0",
     "prop-types": "^15.7.2",
