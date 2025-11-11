@@ -40,6 +40,7 @@ const MultipleComponent = ({
           <CheckboxComponent
             key={i}
             {...option}
+            label={option[config.labelKey]}
             checked={selectedOptions.indexOf(option[config.valueKey]) >= 0}
             onChange={onCheckboxChange(option[config.valueKey])}
             {...otherProps}
